@@ -1,5 +1,6 @@
 package com.ryancphil.pokedex.detail.composable
 
+import android.content.res.Configuration.ORIENTATION_PORTRAIT
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +34,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.ryancphil.pokedex.MainViewModel
+import com.ryancphil.pokedex.detail.PokemonDetailViewState
+import com.ryancphil.pokedex.rememberWindowInfo
 
 @Composable
 fun ScreenPokemonDetails(
@@ -56,47 +59,126 @@ fun ScreenPokemonDetails(
                     .align(Alignment.Center)
             )
         } else if (pokemonDetailViewState.error != null) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                BannerText(
-                    text = pokemonDetailViewState.error.toString(),
-                    textAlign = TextAlign.Center
-                )
-            }
+            Error(error = pokemonDetailViewState.error)
         } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                DetailHeader(
-                    pokemonDetailViewState.name,
-                    pokemonDetailViewState.types
-                )
-                FramedSprite(
-                    name = pokemonDetailViewState.name,
-                    sprite = pokemonDetailViewState.sprite
-                )
-                SizeBanner(
-                    pokemonDetailViewState.height,
-                    pokemonDetailViewState.weight
-                )
-                LazyColumn {
-                    items(1) {
-                        SectionHeader(sectionTitle = pokemonDetailViewState.statsTitle)
-                        SectionItems(items = pokemonDetailViewState.stats)
+            val windowInfo = rememberWindowInfo()
+            when(windowInfo.orientation) {
+                ORIENTATION_PORTRAIT -> Portrait(state = pokemonDetailViewState)
+                else -> Landscape(state = pokemonDetailViewState)
+            }
+        }
+    }
+}
 
-                        SectionHeader(sectionTitle = pokemonDetailViewState.abilitiesTitle)
-                        SectionItems(items = pokemonDetailViewState.abilities)
+@Composable
+fun Error(
+    error: String?
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        BannerText(
+            text = error.toString(),
+            textAlign = TextAlign.Center
+        )
+    }
+}
 
-                        SectionHeader(sectionTitle = pokemonDetailViewState.movesTitle)
-                        SectionItems(items = pokemonDetailViewState.moves)
-                    }
+@Composable
+fun Portrait(
+    state: PokemonDetailViewState
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        DetailHeader(
+            state.name,
+            state.types
+        )
+        FramedSprite(
+            name = state.name,
+            sprite = state.sprite
+        )
+        SizeBanner(
+            state.height,
+            state.weight
+        )
+        LazyColumn {
+            items(1) {
+                SectionHeader(sectionTitle = state.statsTitle)
+                SectionItems(items = state.stats)
+
+                SectionHeader(sectionTitle = state.abilitiesTitle)
+                SectionItems(items = state.abilities)
+
+                SectionHeader(sectionTitle = state.movesTitle)
+                SectionItems(items = state.moves)
+            }
+        }
+    }
+}
+
+@Composable
+fun Landscape(
+    state: PokemonDetailViewState
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxSize(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(.5f)
+                .weight(1f)
+                .padding(
+                    start = 24.dp,
+                    top = 24.dp,
+                    end = 12.dp,
+                    bottom = 24.dp,
+                )
+        ) {
+            DetailHeader(
+                state.name,
+                state.types
+            )
+            FramedSprite(
+                name = state.name,
+                sprite = state.sprite
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(.5f)
+                .weight(1f)
+                .padding(
+                    start = 12.dp,
+                    top = 24.dp,
+                    end = 24.dp,
+                    bottom = 24.dp,
+                )
+        ) {
+            SizeBanner(
+                state.height,
+                state.weight
+            )
+            LazyColumn {
+                items(1) {
+                    SectionHeader(sectionTitle = state.statsTitle)
+                    SectionItems(items = state.stats)
+
+                    SectionHeader(sectionTitle = state.abilitiesTitle)
+                    SectionItems(items = state.abilities)
+
+                    SectionHeader(sectionTitle = state.movesTitle)
+                    SectionItems(items = state.moves)
                 }
             }
         }
