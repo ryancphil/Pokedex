@@ -8,6 +8,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
+import kotlin.math.roundToInt
+
+private const val DECIMETERS_TO_FEET_RATIO = 0.328084f
+private const val HECTOGRAMS_TO_POUNDS_RATIO = 0.220462f
 
 class PokemonDetailUseCase
 @Inject
@@ -26,14 +30,16 @@ constructor(
                 error = "Huh. It seems like this Pokédex is acting funny... check your connection or try again later."
             )
         } else {
+            val imperialHeight = (detailResponse.height * DECIMETERS_TO_FEET_RATIO).roundToInt()
+            val imperialWeight = (detailResponse.weight * HECTOGRAMS_TO_POUNDS_RATIO).roundToInt()
             _pokemon.value = _pokemon.value.copy(
                 isLoading = false,
                 error = null,
                 name = detailResponse.name,
                 types = createTypesString(detailResponse.types),
                 sprite = detailResponse.sprites.frontDefault,
-                height = detailResponse.height.toString(),
-                weight = detailResponse.weight.toString(),
+                height = imperialHeight.toString(),
+                weight = imperialWeight.toString(),
                 statsTitle = "Stats",
                 stats = createStatsList(detailResponse.stats),
                 abilitiesTitle = "Abilities",
