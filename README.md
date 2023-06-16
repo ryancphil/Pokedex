@@ -1,8 +1,8 @@
 # Pokedex
-Pokedex Android app I wrote in order to learn how to use Jetpack Compose.
+Pokedex Android app I'm writing to learn Jetpack Compose.
 
 # TODO:
-- Unit & Instrumentation Tests
+- Instrumentation Tests
 - Cacheing
 - Obfuscation
 - Move hardcoded strings to strings.xml for Localization

@@ -32,5 +32,4 @@ object AppModule {
     @Provides
     fun provideApiService(retrofit: Retrofit): PokedexService =
         retrofit.create(PokedexService::class.java)
-
 }

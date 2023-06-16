@@ -1,6 +1,6 @@
 package com.ryancphil.pokedex.detail
 
-data class PokemonDetailViewState(
+data class PokemonDetailState(
     val isLoading: Boolean = true,
     val error: String? = null,
     val name: String = "",

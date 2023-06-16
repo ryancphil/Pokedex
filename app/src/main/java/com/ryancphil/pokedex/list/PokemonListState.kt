@@ -1,6 +1,6 @@
 package com.ryancphil.pokedex.list
 
-data class PokemonListViewState(
+data class PokemonListState(
     val isLoading: Boolean = false,
     val names: List<String> = emptyList(),
     val error: String? = null,

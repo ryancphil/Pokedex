@@ -1,7 +1,7 @@
 package com.ryancphil.pokedex.list
 
 import com.ryancphil.pokedex.capitalizeAll
-import com.ryancphil.pokedex.data.PokedexRepository
+import com.ryancphil.pokedex.data.PokedexRepositoryImpl
 import com.ryancphil.pokedex.data.model.PokemonListResponse
 import com.ryancphil.pokedex.data.paging.DefaultPaginator
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,12 +14,12 @@ private const val pageSize = 20
 class PokemonListUseCase
 @Inject
 constructor(
-    private val pokedexRepository: PokedexRepository
+    private val pokedexRepository: PokedexRepositoryImpl
 ) {
 
-    private val _pokemonList: MutableStateFlow<PokemonListViewState> =
-        MutableStateFlow(PokemonListViewState())
-    val pokemonList: StateFlow<PokemonListViewState> = _pokemonList.asStateFlow()
+    private val _pokemonList: MutableStateFlow<PokemonListState> =
+        MutableStateFlow(PokemonListState())
+    val pokemonList: StateFlow<PokemonListState> = _pokemonList.asStateFlow()
 
     val paginator = DefaultPaginator(
         0,
