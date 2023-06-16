@@ -1,6 +1,7 @@
 package com.ryancphil.pokedex.detail
 
 import com.ryancphil.pokedex.data.PokedexRepository
+import com.ryancphil.pokedex.data.PokedexRepositoryImpl
 import com.ryancphil.pokedex.data.model.StatResponse
 import com.ryancphil.pokedex.data.model.TypeResponse
 import kotlinx.coroutines.flow.MutableStateFlow
