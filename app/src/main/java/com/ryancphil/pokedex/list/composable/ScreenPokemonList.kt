@@ -1,6 +1,5 @@
 package com.ryancphil.pokedex.list.composable
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,38 +17,31 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.ryancphil.pokedex.MainViewModel
-import com.ryancphil.pokedex.navigation.Screen
-import kotlinx.coroutines.launch
+import com.ryancphil.pokedex.list.PokemonListState
 
 @Composable
 fun ScreenPokemonList(
-    viewModel: MainViewModel,
-    openDetail: (String) -> Unit
+    pokemonListState: PokemonListState,
+    loadPage: () -> Unit,
+    onClick: (Int) -> Unit
 ) {
-    val scope = rememberCoroutineScope()
-    val pokemonListViewState by viewModel.pokemonList.collectAsStateWithLifecycle()
     LazyColumn {
         itemsIndexed(
-            items = pokemonListViewState.names
+            items = pokemonListState.names
         ) { index, pokemonName ->
-            if (index >= pokemonListViewState.names.size - 1 && !pokemonListViewState.endReached && !pokemonListViewState.isLoading) {
-                LaunchedEffect(key1 = "list", block = {
-                    viewModel.fetchPokemonList()
-                })
+            if (
+                index >= pokemonListState.names.size - 1 &&
+                !pokemonListState.endReached &&
+                !pokemonListState.isLoading
+            ) {
+                loadPage()
             }
             PokemonRowItem(name = pokemonName) {
                 val id = index + 1
-                val destination = Screen.ScreenPokemonDetails.withArgs(id.toString())
-                Log.d("ScreenPokemonList", "Destination: $destination")
-                openDetail(destination)
+                onClick(id)
             }
             Spacer(
                 modifier = Modifier
@@ -59,15 +51,13 @@ fun ScreenPokemonList(
             )
         }
         item {
-            if (pokemonListViewState.isLoading) {
+            if (pokemonListState.isLoading) {
                 LoadingIndicator()
-            } else if (pokemonListViewState.error != null) {
+            } else if (pokemonListState.error != null) {
                 ErrorRefreshItem(
-                    errorMessage = pokemonListViewState.error.toString(),
+                    errorMessage = pokemonListState.error.toString(),
                     onRefresh = {
-                        scope.launch {
-                            viewModel.fetchPokemonList()
-                        }
+                        loadPage()
                     }
                 )
             }

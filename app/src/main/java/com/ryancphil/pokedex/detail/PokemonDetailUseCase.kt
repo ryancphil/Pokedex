@@ -1,7 +1,6 @@
 package com.ryancphil.pokedex.detail
 
 import com.ryancphil.pokedex.data.PokedexRepository
-import com.ryancphil.pokedex.data.model.PokemonResponse
 import com.ryancphil.pokedex.data.model.StatResponse
 import com.ryancphil.pokedex.data.model.TypeResponse
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +18,8 @@ constructor(
     private val pokedexRepository: PokedexRepository
 ) {
 
-    private val _pokemon: MutableStateFlow<PokemonDetailViewState> = MutableStateFlow(PokemonDetailViewState())
-    val pokemon: StateFlow<PokemonDetailViewState> = _pokemon.asStateFlow()
+    private val _pokemon: MutableStateFlow<PokemonDetailState> = MutableStateFlow(PokemonDetailState())
+    val pokemon: StateFlow<PokemonDetailState> = _pokemon.asStateFlow()
 
     suspend fun getPokemonDetailViewState(id: Int) {
         val detailResponse = pokedexRepository.fetchPokemonDetails(id)

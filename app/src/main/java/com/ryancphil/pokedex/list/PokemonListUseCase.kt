@@ -17,9 +17,9 @@ constructor(
     private val pokedexRepository: PokedexRepository
 ) {
 
-    private val _pokemonList: MutableStateFlow<PokemonListViewState> =
-        MutableStateFlow(PokemonListViewState())
-    val pokemonList: StateFlow<PokemonListViewState> = _pokemonList.asStateFlow()
+    private val _pokemonList: MutableStateFlow<PokemonListState> =
+        MutableStateFlow(PokemonListState())
+    val pokemonList: StateFlow<PokemonListState> = _pokemonList.asStateFlow()
 
     val paginator = DefaultPaginator(
         0,

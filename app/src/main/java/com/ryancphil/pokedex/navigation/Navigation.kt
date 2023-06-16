@@ -8,6 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -46,11 +47,18 @@ fun Navigation(
                 startDestination = Screen.ScreenPokemonList.route
             ) {
                 composable(route = Screen.ScreenPokemonList.route) {
+                    val pokemonListState by viewModel.pokemonList.collectAsStateWithLifecycle()
                     ScreenPokemonList(
-                        viewModel = viewModel
-                    ) { destination ->
-                        navController.navigate(destination)
-                    }
+                        pokemonListState = pokemonListState,
+                        loadPage = {
+                            viewModel.fetchPokemonList()
+                        },
+                        onClick = { pokemonId ->
+                            viewModel.fetchPokemonDetails(pokemonId)
+                            val destination = Screen.ScreenPokemonDetails.withArgs(pokemonId.toString())
+                            navController.navigate(destination)
+                        }
+                    )
                 }
                 composable(
                     route = Screen.ScreenPokemonDetails.route + "/{pokemonId}",
@@ -64,9 +72,9 @@ fun Navigation(
                     if (pokemonId == null) {
                         Log.e("Navigation", "Error: pokemonId cannot be null.")
                     } else {
+                        val pokemonDetailState by viewModel.pokemon.collectAsStateWithLifecycle()
                         ScreenPokemonDetails(
-                            pokemonId = pokemonId,
-                            viewModel = viewModel
+                            pokemonDetailState = pokemonDetailState
                         )
                     }
                 }

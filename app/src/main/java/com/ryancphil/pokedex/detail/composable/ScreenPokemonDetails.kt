@@ -19,8 +19,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,40 +29,33 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.ryancphil.pokedex.MainViewModel
-import com.ryancphil.pokedex.detail.PokemonDetailViewState
+import com.ryancphil.pokedex.detail.PokemonDetailState
 import com.ryancphil.pokedex.rememberWindowInfo
 
 @Composable
 fun ScreenPokemonDetails(
-    pokemonId: Int,
-    viewModel: MainViewModel
+    pokemonDetailState: PokemonDetailState
 ) {
-    LaunchedEffect(key1 = "detail", block = {
-        viewModel.fetchPokemonDetails(pokemonId)
-    })
-    val pokemonDetailViewState by viewModel.pokemon.collectAsStateWithLifecycle()
     Box(
         modifier = Modifier
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        if (pokemonDetailViewState.isLoading) {
+        if (pokemonDetailState.isLoading) {
             CircularProgressIndicator(
                 modifier = Modifier
                     .height(50.dp)
                     .width(50.dp)
                     .align(Alignment.Center)
             )
-        } else if (pokemonDetailViewState.error != null) {
-            Error(error = pokemonDetailViewState.error)
+        } else if (pokemonDetailState.error != null) {
+            Error(error = pokemonDetailState.error)
         } else {
             val windowInfo = rememberWindowInfo()
-            when(windowInfo.orientation) {
-                ORIENTATION_PORTRAIT -> Portrait(state = pokemonDetailViewState)
-                else -> Landscape(state = pokemonDetailViewState)
+            when (windowInfo.orientation) {
+                ORIENTATION_PORTRAIT -> Portrait(state = pokemonDetailState)
+                else -> Landscape(state = pokemonDetailState)
             }
         }
     }
@@ -88,7 +79,7 @@ fun Error(
 
 @Composable
 fun Portrait(
-    state: PokemonDetailViewState
+    state: PokemonDetailState
 ) {
     Column(
         modifier = Modifier
@@ -126,7 +117,7 @@ fun Portrait(
 
 @Composable
 fun Landscape(
-    state: PokemonDetailViewState
+    state: PokemonDetailState
 ) {
     Row(
         modifier = Modifier
