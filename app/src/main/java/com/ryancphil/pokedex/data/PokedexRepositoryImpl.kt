@@ -1,42 +1,31 @@
 package com.ryancphil.pokedex.data
 
-import android.util.Log
+import com.ryancphil.pokedex.core.data.safeCall
 import com.ryancphil.pokedex.data.model.PokemonListResponse
 import com.ryancphil.pokedex.data.model.PokemonResponse
+import com.ryancphil.pokedex.domain.PokedexRepository
 import javax.inject.Inject
 
 class PokedexRepositoryImpl
-@Inject
-constructor(
+@Inject constructor(
     private val service: PokedexService
-): PokedexRepository {
+) : PokedexRepository {
 
     override suspend fun fetchPokemonList(
         offset: Int,
         limit: Int
-    ): PokemonListResponse? {
-        return try {
-            val list = service.getPokemonList(
+    ): Result<PokemonListResponse> {
+        return safeCall {
+            service.getPokemonList(
                 offset,
                 limit
             )
-            Log.d("PokedexRepository", "Successfully fetched Pokemon List!")
-            return list
-        } catch (e: Exception) {
-            Log.e("PokedexRepository", "Failed to fetch Pokemon List!")
-            null
         }
     }
 
-    override suspend fun fetchPokemonDetails(pokemonId: Int): PokemonResponse? {
-        return try {
-            val pokemon = service.getPokemonById(pokemonId)
-            Log.d("PokedexRepository", "Pokemon Details: $pokemon")
-            pokemon
-        } catch (e: Exception) {
-            Log.e("PokedexRepository", "Failed to fetch Pokemon details for: $pokemonId!")
-            Log.e("PokedexRepository", "Exception: $e")
-            null
+    override suspend fun fetchPokemonDetails(pokemonId: Int): Result<PokemonResponse> {
+        return safeCall {
+            service.getPokemonById(pokemonId)
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.ryancphil.pokedex.data.repository
 
-import com.ryancphil.pokedex.data.PokedexRepository
+import com.ryancphil.pokedex.domain.PokedexRepository
 import com.ryancphil.pokedex.data.model.NameAndUrlResponse
 import com.ryancphil.pokedex.data.model.PokemonListResponse
 import com.ryancphil.pokedex.data.model.PokemonResponse

@@ -1,6 +1,6 @@
 package com.ryancphil.pokedex.detail
 
-import com.ryancphil.pokedex.data.PokedexRepository
+import com.ryancphil.pokedex.domain.PokedexRepository
 import com.ryancphil.pokedex.data.PokedexRepositoryImpl
 import com.ryancphil.pokedex.data.model.StatResponse
 import com.ryancphil.pokedex.data.model.TypeResponse
@@ -13,6 +13,7 @@ import kotlin.math.roundToInt
 private const val DECIMETERS_TO_FEET_RATIO = 0.328084f
 private const val HECTOGRAMS_TO_POUNDS_RATIO = 0.220462f
 
+@Deprecated(message = "This is not a use case, its a faux viewmodel and needs removal.")
 class PokemonDetailUseCase
 @Inject
 constructor(
@@ -22,33 +23,33 @@ constructor(
     private val _pokemon: MutableStateFlow<PokemonDetailState> = MutableStateFlow(PokemonDetailState())
     val pokemon: StateFlow<PokemonDetailState> = _pokemon.asStateFlow()
 
-    suspend fun getPokemonDetailViewState(id: Int) {
-        val detailResponse = pokedexRepository.fetchPokemonDetails(id)
-        if (detailResponse == null) {
-            _pokemon.value = _pokemon.value.copy(
-                isLoading = false,
-                error = "Huh. It seems like this Pokédex is acting funny... check your connection or try again later."
-            )
-        } else {
-            val imperialHeight = (detailResponse.height * DECIMETERS_TO_FEET_RATIO).roundToInt()
-            val imperialWeight = (detailResponse.weight * HECTOGRAMS_TO_POUNDS_RATIO).roundToInt()
-            _pokemon.value = _pokemon.value.copy(
-                isLoading = false,
-                error = null,
-                name = detailResponse.name,
-                types = createTypesString(detailResponse.types),
-                sprite = detailResponse.sprites.frontDefault,
-                height = imperialHeight.toString(),
-                weight = imperialWeight.toString(),
-                statsTitle = "Stats",
-                stats = createStatsList(detailResponse.stats),
-                abilitiesTitle = "Abilities",
-                abilities = detailResponse.abilities.map { it.ability.name },
-                movesTitle = "Moves",
-                moves = detailResponse.moves.map { it.move.name }
-            )
-        }
-    }
+//    suspend fun getPokemonDetailViewState(id: Int) {
+//        val detailResponse = pokedexRepository.fetchPokemonDetails(id)
+//        if (detailResponse == null) {
+//            _pokemon.value = _pokemon.value.copy(
+//                isLoading = false,
+//                error = "Huh. It seems like this Pokédex is acting funny... check your connection or try again later."
+//            )
+//        } else {
+//            val imperialHeight = (detailResponse.height * DECIMETERS_TO_FEET_RATIO).roundToInt()
+//            val imperialWeight = (detailResponse.weight * HECTOGRAMS_TO_POUNDS_RATIO).roundToInt()
+//            _pokemon.value = _pokemon.value.copy(
+//                isLoading = false,
+//                error = null,
+//                name = detailResponse.name,
+//                types = createTypesString(detailResponse.types),
+//                sprite = detailResponse.sprites.frontDefault,
+//                height = imperialHeight.toString(),
+//                weight = imperialWeight.toString(),
+//                statsTitle = "Stats",
+//                stats = createStatsList(detailResponse.stats),
+//                abilitiesTitle = "Abilities",
+//                abilities = detailResponse.abilities.map { it.ability.name },
+//                movesTitle = "Moves",
+//                moves = detailResponse.moves.map { it.move.name }
+//            )
+//        }
+//    }
 
     fun resetLoadingState() {
         _pokemon.value = _pokemon.value.copy(

@@ -1,6 +1,6 @@
 package com.ryancphil.pokedex.di
 
-import com.ryancphil.pokedex.data.PokedexRepository
+import com.ryancphil.pokedex.domain.PokedexRepository
 import com.ryancphil.pokedex.data.PokedexRepositoryImpl
 import dagger.Binds
 import dagger.Module

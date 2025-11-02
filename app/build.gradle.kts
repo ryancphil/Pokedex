@@ -32,6 +32,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -63,6 +64,7 @@ dependencies {
 
     // --- Hilt for Dependency Injection ---
     implementation(libs.hilt)
+    implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
 
     // --- Networking (Retrofit & Moshi) ---
@@ -73,6 +75,9 @@ dependencies {
 
     // --- Image Loading (Coil for Compose) ---
     implementation(libs.coil)
+
+    // --- Logging ---
+    implementation(libs.timber)
 
     // --- Unit Testing ---
     testImplementation(libs.junit)

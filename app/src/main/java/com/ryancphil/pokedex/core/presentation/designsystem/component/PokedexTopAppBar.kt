@@ -1,4 +1,6 @@
-package com.ryancphil.pokedex.navigation
+@file:OptIn(ExperimentalMaterial3Api::class)
+
+package com.ryancphil.pokedex.core.presentation.designsystem.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
@@ -11,9 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ryancphil.pokedex.R
+import com.ryancphil.pokedex.core.presentation.designsystem.theme.PokedexTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+// TODO: Customize to look like the top of an actual Pokedex
 @Composable
 fun PokedexTopAppBar(
     hasNavIcon: Boolean,
@@ -24,7 +30,7 @@ fun PokedexTopAppBar(
         title = {
             Text(
                 modifier = Modifier.padding(4.dp),
-                text = "Pokédex"
+                text = stringResource(R.string.pokedex)
             )
         },
         navigationIcon = {
@@ -39,4 +45,15 @@ fun PokedexTopAppBar(
             }
         }
     )
+}
+
+@Preview
+@Composable
+private fun PokedexTopAppBarPreview() {
+    PokedexTheme {
+        PokedexTopAppBar(
+            hasNavIcon = true,
+            onBackPress = { }
+        )
+    }
 }

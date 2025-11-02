@@ -1,4 +1,4 @@
-package com.ryancphil.pokedex.ui.theme
+package com.ryancphil.pokedex.core.presentation.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

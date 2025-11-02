@@ -20,24 +20,24 @@ constructor(
     val pokemonList = listUseCase.pokemonList
     val pokemon = detailUseCase.pokemon
 
-    init {
-        fetchPokemonList()
-    }
+//    init {
+//        fetchPokemonList()
+//    }
 
-    fun fetchPokemonList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            listUseCase.paginator.loadNextPage()
-        }
-    }
-
-    fun fetchPokemonDetails(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            detailUseCase.getPokemonDetailViewState(id)
-        }
-    }
-
-    fun resetDetailLoadingState() {
-        detailUseCase.resetLoadingState()
-    }
+//    fun fetchPokemonList() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            listUseCase.paginator.loadNextPage()
+//        }
+//    }
+//
+//    fun fetchPokemonDetails(id: Int) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            detailUseCase.getPokemonDetailViewState(id)
+//        }
+//    }
+//
+//    fun resetDetailLoadingState() {
+//        detailUseCase.resetLoadingState()
+//    }
 
 }
