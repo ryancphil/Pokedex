@@ -1,0 +1,76 @@
+[versions]
+# Gradle & Core Build Tools
+agp = "8.12.3"
+kotlin = "2.2.21"
+ksp = "2.2.21-2.0.4"
+
+coil = "2.7.0"
+composeBom = "2025.10.01"
+navigation = "2.9.5"
+coreKtx = "1.17.0"
+lifecycle = "2.9.4"
+retrofit = "3.0.0"
+moshi = "1.15.2"
+hilt = "2.57.2"
+junit = "4.13.2"
+androidTestExtJunit = "1.3.0"
+archCoreTesting = "2.2.0"
+coroutines = "1.10.2"
+truth = "1.4.5"
+espressoCore = "3.7.0"
+materialIcons = "1.6.8"
+
+
+
+[libraries]
+# Core
+androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle"}
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+# Compose
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom"}
+androidx-lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling"}
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"}
+
+androidx-compose-material-icons-core = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "materialIcons" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIcons" }
+
+# 3rd party
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
+moshi = {group = "com.squareup.moshi", name = "moshi", version.ref = "moshi"}
+moshi-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi"}
+hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt"}
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-arch-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "archCoreTesting"}
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref="coroutines"}
+google-truth = { group = "com.google.truth", name = "truth", version.ref = "truth"}
+androidx-test-ext = { group = "androidx.test.ext", name = "junit", version.ref = "androidTestExtJunit" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+
+
+[plugins]
+# Core
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+
+
+[bundles]

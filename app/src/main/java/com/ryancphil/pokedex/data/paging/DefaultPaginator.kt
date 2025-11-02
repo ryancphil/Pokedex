@@ -2,11 +2,11 @@ package com.ryancphil.pokedex.data.paging
 
 class DefaultPaginator<Key, Item>(
     private val initialKey: Key,
-    private inline val onLoadUpdated: (Boolean) -> Unit,
-    private inline val onRequest: suspend (nextKey: Key) -> Result<Item?>,
-    private inline val getNextKey: suspend (Key) -> Key,
-    private inline val onError: suspend (Throwable?) -> Unit,
-    private inline val onSuccess: suspend (result: Item, newKey: Key) -> Unit,
+    private val onLoadUpdated: (Boolean) -> Unit,
+    private val onRequest: suspend (nextKey: Key) -> Result<Item?>,
+    private val getNextKey: suspend (Key) -> Key,
+    private val onError: suspend (Throwable?) -> Unit,
+    private val onSuccess: suspend (result: Item, newKey: Key) -> Unit,
 ): Paginator<Key, Item> {
 
     private var currentKey = initialKey
