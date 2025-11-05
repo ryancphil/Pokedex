@@ -1,15 +1,13 @@
 package com.ryancphil.pokedex.pokedex.presentation.list
 
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.ryancphil.pokedex.core.presentation.designsystem.component.PokedexScaffold
 import com.ryancphil.pokedex.core.presentation.designsystem.component.PokedexTopAppBar
 import com.ryancphil.pokedex.core.presentation.designsystem.theme.PokedexTheme
 
@@ -35,8 +33,7 @@ fun PokemonListScreen(
     state: PokemonListState,
     onAction: (PokemonListAction) -> Unit
 ) {
-    Scaffold(
-        contentWindowInsets = WindowInsets.safeDrawing,
+    PokedexScaffold(
         topBar = {
             PokedexTopAppBar(
                 hasNavIcon = false,

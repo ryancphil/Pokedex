@@ -15,8 +15,6 @@ import timber.log.Timber
 /**
  * Create the Navigation graph that handles moving between
  * List and Detail screens.
- *
- * Use the compscreen live template to create new screens.
  */
 @Composable
 fun NavigationRoot(
@@ -46,6 +44,9 @@ fun NavigationRoot(
                 Timber.e("Navigation Error: pokemonId cannot be null.")
             } else {
                 PokemonDetailScreenRoot(
+                    onBack = {
+                        navController.popBackStack()
+                    },
                     pokemonId = pokemonId
                 )
             }

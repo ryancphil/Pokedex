@@ -29,7 +29,7 @@ private val LightColorScheme = lightColorScheme(
     secondary = AshYellow,
     tertiary = AshBlue,
     surface = AshRed,
-    onSurface = AshWhite,
+    onSurface = AshBlack,
     background = AshWhite
 
     /* Other default colors to override

@@ -11,7 +11,7 @@ data class PokemonResponse(
     @Json(name = "base_experience") val baseExperience: Int,
     @Json(name = "forms") val forms: List<NameAndUrlResponse>,
     @Json(name = "game_indices") val gameIndices: List<Any>,
-    @Json(name = "height") val height: Int,
+    @Json(name = "height") val heightInDecimeters: Int,
     @Json(name = "held_items") val heldItems: List<Any?>,
     @Json(name = "id") val id: Int,
     @Json(name = "is_default") val isDefault: Boolean,
@@ -22,5 +22,5 @@ data class PokemonResponse(
     @Json(name = "species") val species: Any?,
     @Json(name = "stats") val stats: List<StatResponse>,
     @Json(name = "types") val types: List<TypeResponse>,
-    @Json(name = "weight") val weight: Int
+    @Json(name = "weight") val weightInHectograms: Int
 )

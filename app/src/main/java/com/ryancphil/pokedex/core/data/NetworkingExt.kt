@@ -20,7 +20,7 @@ inline fun <reified T> responseToResult(response: Response<T>): Result<T> {
         in 200 .. 299 -> {
             response.body()?.let {
                 Result.success(it)
-            } ?: Result.failure(Exception("Empty response body"))
+            } ?: Result.failure(Exception("Error parsing response"))
         }
 
         else -> {

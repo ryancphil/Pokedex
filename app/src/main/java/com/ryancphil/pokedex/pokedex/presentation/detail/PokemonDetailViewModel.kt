@@ -27,17 +27,7 @@ class PokemonDetailViewModel
                     state = state.copy(
                         isLoading = false,
                         error = null,
-                        name = it.name,
-                        types = it.types.map { it.type.name }.toString(),
-                        sprite = it.sprites.frontDefault,
-                        height = it.height.toString(),
-                        weight = it.weight.toString(),
-                        statsTitle = "Stats",
-                        stats = it.stats.map { it.stat.name },
-                        abilitiesTitle = "Abilities",
-                        abilities = it.abilities.map { it.ability.name },
-                        movesTitle = "Moves",
-                        moves = it.moves.map { it.move.name }
+                        pokemonState = it.toPokemonState()
                     )
                 }
                 .onFailure {
