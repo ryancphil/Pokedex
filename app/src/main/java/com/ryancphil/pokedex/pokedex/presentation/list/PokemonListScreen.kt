@@ -10,6 +10,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.ryancphil.pokedex.core.presentation.designsystem.component.PokedexScaffold
 import com.ryancphil.pokedex.core.presentation.designsystem.component.PokedexTopAppBar
 import com.ryancphil.pokedex.core.presentation.designsystem.theme.PokedexTheme
+import timber.log.Timber
 
 @Composable
 fun PokemonListScreenRoot(
@@ -47,20 +48,20 @@ fun PokemonListScreen(
                 .padding(padding),
         ) {
             items(
-                count = state.pokemon.size,
+                count = state.pokemon.size / 2,
             ) { index ->
-                if (index >= state.pokemon.size - 1 &&
+                if (index >= (state.pokemon.size / 2) - 1 &&
                     !state.isLoading &&
                     !state.endReached) {
                     // We have scrolled to the bottom.
+                    Timber.d("Scrolled to bottom!")
                     onAction(PokemonListAction.OnLoadMore)
                 }
                 PokemonRowItem(
-                    name = state.pokemon[index].first,
-                    spriteUrl = state.pokemon[index].second,
-                    onClick = {
-                        onAction(PokemonListAction.OnPokemonClick(index + 1))
-                    }
+                    rowIndex = index,
+                    pokemonOne = state.pokemon[index * 2],
+                    pokemonTwo = state.pokemon[index * 2 + 1],
+                    onAction = onAction
                 )
             }
         }

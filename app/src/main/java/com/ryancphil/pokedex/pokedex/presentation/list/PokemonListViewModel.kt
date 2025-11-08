@@ -43,10 +43,13 @@ class PokemonListViewModel
                 limit = PAGE_SIZE
             )
                 .onSuccess { response ->
-//                    Timber.d("onSuccess Response: $response")
-                    val pokemonNames = state.pokemon.map { it.first } + response.pokemonList.map { it.name }.capitalizeAll()
+                    Timber.d("onSuccess Response: $response")
+                    val pokemonNames = state.pokemon.map { it.name } + response.pokemonList.map { it.name }.capitalizeAll()
                     val pokemon = pokemonNames.mapIndexed { index, name ->
-                        name to "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png"
+                        PokemonListItemState(
+                            name = name,
+                            spriteUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png"
+                        )
                     }
 
                     state = state.copy(
