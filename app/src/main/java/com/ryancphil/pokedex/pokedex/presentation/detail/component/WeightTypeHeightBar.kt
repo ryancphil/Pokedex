@@ -1,4 +1,4 @@
-package com.ryancphil.pokedex.pokedex.presentation.detail
+package com.ryancphil.pokedex.pokedex.presentation.detail.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import com.ryancphil.pokedex.R
 import com.ryancphil.pokedex.core.presentation.designsystem.theme.PokedexTheme
 import com.ryancphil.pokedex.pokedex.domain.model.Type
+import com.ryancphil.pokedex.pokedex.presentation.detail.TypeState
+import com.ryancphil.pokedex.pokedex.presentation.detail.toTypeState
 
 @Composable
 fun WeightTypeHeightBar(
