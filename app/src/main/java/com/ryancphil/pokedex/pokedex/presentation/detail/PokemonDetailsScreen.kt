@@ -64,7 +64,6 @@ fun PokemonDetailScreen(
             add(MaterialTheme.colorScheme.background)
             types.map { add(it.toTypeState().tint.copy(alpha = 0.3f)) }
             add(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f))
-
         }
 
         Box(
