@@ -16,6 +16,7 @@ import timber.log.Timber
  * Create the Navigation graph that handles moving between
  * List and Detail screens.
  */
+// TODO: Migrate to Nav3
 @Composable
 fun NavigationRoot(
     navController: NavHostController = rememberNavController(),

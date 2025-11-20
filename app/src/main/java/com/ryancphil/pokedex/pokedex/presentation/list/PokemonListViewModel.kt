@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.ryancphil.pokedex.core.domain.capitalizeAll
 import com.ryancphil.pokedex.pokedex.domain.PokedexRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,12 +22,11 @@ class PokemonListViewModel
     private val pokemonRepository: PokedexRepository
 ) : ViewModel() {
 
-    // Compose state, could also use StateFlow.
     var state by mutableStateOf(PokemonListState())
         private set
 
     init {
-        loadMore()
+        loadFromDatabase()
     }
 
     fun onAction(action: PokemonListAction) {
@@ -34,39 +35,36 @@ class PokemonListViewModel
         }
     }
 
-    private fun loadMore() {
-        Timber.d("Loading more...")
-        viewModelScope.launch {
-            state = state.copy(isLoading = true)
-            pokemonRepository.fetchPokemonList(
-                offset = PAGE_SIZE * state.currentPage,
-                limit = PAGE_SIZE
-            )
-                .onSuccess { response ->
-                    Timber.d("onSuccess Response: $response")
-                    val pokemonNames = state.pokemon.map { it.name } + response.pokemonList.map { it.name }.capitalizeAll()
-                    val pokemon = pokemonNames.mapIndexed { index, name ->
-                        PokemonListItemState(
-                            name = name,
-                            spriteUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png"
-                        )
-                    }
+    private fun loadFromDatabase() {
+        pokemonRepository.getCachedPokemon()
+            .onEach { list ->
+                if (list.isEmpty()) {
+                    Timber.d("INITIAL LOAD, SHOULD ONLY FIRE ONCE!")
+                    loadMore()
+                }
+                val pokemon = list.map {
+                    PokemonListItemState(
+                        id = it.id,
+                        name = it.name,
+                        spriteUrl = it.sprite
+                    )
+                }
+                state = state.copy(pokemon = pokemon)
+            }
+            .launchIn(viewModelScope)
+    }
 
-                    state = state.copy(
-                        isLoading = false,
-                        pokemon = pokemon,
-                        error = null,
-                        endReached = response.count == 0,
-                        currentPage = state.currentPage + 1
-                    )
-                }
-                .onFailure {
-                    Timber.e("LoadMore Failed: $it")
-                    state = state.copy(
-                        isLoading = false,
-                        error = it.message
-                    )
-                }
+    private fun loadMore() {
+        viewModelScope.launch {
+            if (!state.isLoading) {
+                state = state.copy(isLoading = true)
+                Timber.d("Loading page: ${state.currentPage}")
+                pokemonRepository.fetchPokemon(
+                    offset = PAGE_SIZE * state.currentPage,
+                    limit = PAGE_SIZE
+                )
+                state = state.copy(isLoading = false, currentPage = state.currentPage + 1)
+            }
         }
     }
 }

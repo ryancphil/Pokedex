@@ -1,5 +1,6 @@
 package com.ryancphil.pokedex.pokedex.data
 
+import com.ryancphil.pokedex.pokedex.data.database.PokemonEntity
 import com.ryancphil.pokedex.pokedex.data.model.PokemonResponse
 import com.ryancphil.pokedex.pokedex.domain.model.Pokemon
 import com.ryancphil.pokedex.pokedex.domain.model.Stat
@@ -19,5 +20,13 @@ fun PokemonResponse.toPokemon(): Pokemon {
                 it.baseStat
             )
         }
+    )
+}
+
+fun PokemonResponse.toEntity(): PokemonEntity {
+    return PokemonEntity(
+        id = id,
+        name = name,
+        spriteUrl = sprites.frontDefault
     )
 }

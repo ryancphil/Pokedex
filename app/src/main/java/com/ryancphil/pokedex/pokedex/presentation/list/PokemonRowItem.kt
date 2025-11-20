@@ -3,9 +3,11 @@ package com.ryancphil.pokedex.pokedex.presentation.list
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,7 +30,6 @@ import com.ryancphil.pokedex.core.presentation.designsystem.theme.PokedexTheme
 
 @Composable
 fun PokemonRowItem(
-    rowIndex: Int,
     pokemonOne: PokemonListItemState,
     pokemonTwo: PokemonListItemState? = null,
     onAction: (PokemonListAction) -> Unit
@@ -42,22 +43,22 @@ fun PokemonRowItem(
     ) {
         PokemonItem(
             modifier = Modifier.weight(1f),
+            id = pokemonOne.id.toString(),
             name = pokemonOne.name,
             spriteUrl = pokemonOne.spriteUrl,
             onClick = {
-                onAction(PokemonListAction.OnPokemonClick(rowIndex * 2 + 1))
-            }
-        )
+                onAction(PokemonListAction.OnPokemonClick(pokemonOne.id))
+            })
         Spacer(modifier = Modifier.width(4.dp))
         if (pokemonTwo != null) {
             PokemonItem(
                 modifier = Modifier.weight(1f),
+                id = pokemonTwo.id.toString(),
                 name = pokemonTwo.name,
                 spriteUrl = pokemonTwo.spriteUrl,
                 onClick = {
-                    onAction(PokemonListAction.OnPokemonClick(rowIndex * 2 + 2))
-                }
-            )
+                    onAction(PokemonListAction.OnPokemonClick(pokemonTwo.id))
+                })
         } else {
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -67,11 +68,12 @@ fun PokemonRowItem(
 @Composable
 fun PokemonItem(
     modifier: Modifier = Modifier,
-    name: String = "Name",
-    spriteUrl: String = "",
+    id: String,
+    name: String,
+    spriteUrl: String,
     onClick: () -> Unit
 ) {
-    Column(
+    Box(
         modifier = modifier
             .clip(RoundedCornerShape(30.dp))
             .size(200.dp)
@@ -79,22 +81,30 @@ fun PokemonItem(
             .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.1f))
             .clickable(
                 onClick = onClick
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            )
     ) {
-        AsyncImage(
-            modifier = Modifier.size(100.dp),
-            model = spriteUrl,
-            contentDescription = null
-        )
-        Spacer(modifier = Modifier.height(4.dp))
         Text(
-            textAlign = TextAlign.Center,
-            text = name,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
+            modifier = Modifier.padding(8.dp),
+            text = "#$id"
         )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            AsyncImage(
+                modifier = Modifier.size(100.dp),
+                model = spriteUrl,
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                textAlign = TextAlign.Center,
+                text = name,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
 }
 
@@ -103,6 +113,9 @@ fun PokemonItem(
 private fun PokemonItemPreview() {
     PokedexTheme {
         PokemonItem(
+            id = "1",
+            name = "Bulbasaur",
+            spriteUrl = "",
             onClick = {}
         )
     }
@@ -113,7 +126,6 @@ private fun PokemonItemPreview() {
 private fun PokemonRowItemPreview() {
     PokedexTheme {
         PokemonRowItem(
-            rowIndex = 0,
             pokemonOne = PokemonListItemState(),
             pokemonTwo = PokemonListItemState(),
             onAction = {}

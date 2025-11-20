@@ -21,6 +21,7 @@ truth = "1.4.5"
 espressoCore = "3.7.0"
 materialIcons = "1.7.8"
 timber = "5.0.1"
+room = "2.8.4"
 
 [libraries]
 # Core
@@ -44,6 +45,11 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 
 androidx-compose-material-icons-core = { group = "androidx.compose.material", name = "material-icons-core", version.ref = "materialIcons" }
 androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIcons" }
+
+# ROOM
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 
 # 3rd party
 retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
