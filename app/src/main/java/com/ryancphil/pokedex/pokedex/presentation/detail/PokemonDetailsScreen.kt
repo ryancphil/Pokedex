@@ -22,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -30,6 +32,7 @@ import com.ryancphil.pokedex.core.presentation.designsystem.component.PokedexSca
 import com.ryancphil.pokedex.core.presentation.designsystem.component.PokedexTopAppBar
 import com.ryancphil.pokedex.core.presentation.designsystem.theme.PokedexTheme
 import com.ryancphil.pokedex.core.presentation.ui.rememberWindowInfo
+import com.ryancphil.pokedex.pokedex.domain.model.Type
 import com.ryancphil.pokedex.pokedex.presentation.detail.component.Error
 import com.ryancphil.pokedex.pokedex.presentation.detail.component.StatBar
 import com.ryancphil.pokedex.pokedex.presentation.detail.component.WeightTypeHeightBar
@@ -119,7 +122,7 @@ fun Portrait(
 
         // Sprite in the center
         AsyncImage(
-            modifier = Modifier.fillMaxWidth(.5f),
+            modifier = Modifier.fillMaxHeight(.5f),
             model = state.sprite,
             contentDescription = "Sprite of ${state.name}"
         )
@@ -222,12 +225,49 @@ private fun StatColumn(
 }
 
 
-@PreviewScreenSizes
+@PreviewFontScale
 @Composable
 fun PokemonDetailsScreenPreview() {
     PokedexTheme {
         PokemonDetailScreen(
-            state = PokemonDetailState(),
+            state = PokemonDetailState(
+                isLoading = false,
+                pokemonState = PokemonState(
+                    id = 1,
+                    name = "Bulbasaur",
+                    sprite = "https",
+                    heightInMeters = 100.0,
+                    weightInKilograms = 50.0,
+                    types = listOf(Type.GRASS, Type.POISON),
+                    baseStats = listOf(
+                        StatState(
+                            name = "HP",
+                            value = 50
+                        ),
+                        StatState(
+                            name = "ATK",
+                            value = 50
+                        ),
+                        StatState(
+                            name = "DEF",
+                            value = 50
+                        ),
+                        StatState(
+                            name = "SP-ATK",
+                            value = 50
+                        ),
+                        StatState(
+                            name = "SP-DEF",
+                            value = 50
+                        ),
+                        StatState(
+                            name = "SPD",
+                            value = 50
+                        )
+                    ),
+                ),
+                error = null
+            ),
             onBack = { })
     }
 }
