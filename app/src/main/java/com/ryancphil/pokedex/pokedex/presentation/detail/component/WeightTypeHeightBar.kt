@@ -1,12 +1,15 @@
 package com.ryancphil.pokedex.pokedex.presentation.detail.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -17,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.unit.dp
 import com.ryancphil.pokedex.R
 import com.ryancphil.pokedex.core.presentation.designsystem.theme.PokedexTheme
@@ -34,6 +38,7 @@ fun WeightTypeHeightBar(
     Row(
         modifier
             .fillMaxWidth()
+            .horizontalScroll(state = rememberScrollState())
             .clip(RoundedCornerShape(5.dp))
             .background(MaterialTheme.colorScheme.tertiary.copy(alpha = 0.1f))
             .padding(horizontal = 25.dp),
@@ -67,7 +72,8 @@ private fun TypeRow(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
-                    modifier = Modifier.size(40.dp),
+                    modifier = Modifier.heightIn(min = 10.dp, max = 40.dp)
+                        .padding(4.dp),
                     imageVector = it.icon,
                     tint = it.tint,
                     contentDescription = null
@@ -113,7 +119,8 @@ private fun TextItemPreview() {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
+@PreviewFontScale
 @Composable
 private fun WeightTypeHeightPreview() {
     PokedexTheme {

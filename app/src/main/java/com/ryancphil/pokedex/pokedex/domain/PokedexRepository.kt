@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface PokedexRepository {
     fun getCachedPokemon(): Flow<List<Pokemon>>
-    suspend fun fetchPokemon(offset: Int, limit: Int)
+    suspend fun fetchPokemon(offset: Int, limit: Int): Boolean
     suspend fun fetchPokemonDetails(id: Int): Result<Pokemon>
 }

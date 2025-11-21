@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ryancphil.pokedex.core.domain.capitalizeAll
 import com.ryancphil.pokedex.pokedex.domain.PokedexRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
@@ -56,14 +55,18 @@ class PokemonListViewModel
 
     private fun loadMore() {
         viewModelScope.launch {
-            if (!state.isLoading) {
+            if (!state.isLoading && !state.endReached) {
                 state = state.copy(isLoading = true)
                 Timber.d("Loading page: ${state.currentPage}")
-                pokemonRepository.fetchPokemon(
+                val endReached = pokemonRepository.fetchPokemon(
                     offset = PAGE_SIZE * state.currentPage,
                     limit = PAGE_SIZE
                 )
-                state = state.copy(isLoading = false, currentPage = state.currentPage + 1)
+                state = state.copy(
+                    isLoading = false,
+                    currentPage = state.currentPage + 1,
+                    endReached = endReached
+                )
             }
         }
     }

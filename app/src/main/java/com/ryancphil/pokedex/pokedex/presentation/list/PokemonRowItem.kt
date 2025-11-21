@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,7 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import com.ryancphil.pokedex.core.presentation.designsystem.theme.PokedexTheme
 
 @Composable
@@ -92,9 +93,12 @@ fun PokemonItem(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 modifier = Modifier.size(100.dp),
                 model = spriteUrl,
+                loading = {
+                    CircularProgressIndicator(modifier = Modifier.padding(20.dp))
+                },
                 contentDescription = null
             )
             Spacer(modifier = Modifier.height(4.dp))

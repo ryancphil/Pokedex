@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -137,18 +139,9 @@ fun Portrait(
         )
 
         // Base States Row Items
-        Column(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            state.baseStats.forEach {
-                StatBar(
-                    modifier = Modifier.padding(2.dp),
-                    name = it.name,
-                    value = it.value,
-                    color = it.getColor()
-                )
-            }
-        }
+        StatColumn(
+            baseStats = state.baseStats
+        )
     }
 }
 
@@ -202,21 +195,32 @@ fun Landscape(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceAround
         ) {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                state.baseStats.forEach {
-                    StatBar(
-                        modifier = Modifier.padding(2.dp),
-                        name = it.name,
-                        value = it.value,
-                        color = it.getColor()
-                    )
-                }
-            }
+            StatColumn(
+                baseStats = state.baseStats
+            )
         }
     }
 }
+
+@Composable
+private fun StatColumn(
+    baseStats: List<StatState>
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+            .verticalScroll(state = rememberScrollState())
+    ) {
+        baseStats.forEach {
+            StatBar(
+                modifier = Modifier.padding(2.dp),
+                name = it.name,
+                value = it.value,
+                color = it.getColor()
+            )
+        }
+    }
+}
+
 
 @PreviewScreenSizes
 @Composable
