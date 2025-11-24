@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.unit.dp
@@ -68,7 +69,8 @@ private fun TypeRow(
         types.forEach {
             Column(
                 modifier = Modifier
-                    .padding(8.dp),
+                    .padding(8.dp)
+                    .semantics(mergeDescendants = true){},
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
@@ -94,7 +96,8 @@ private fun TextItem(
 ) { 
     Column(
         modifier = Modifier
-            .padding(8.dp),
+            .padding(8.dp)
+            .semantics(mergeDescendants = true){},
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(

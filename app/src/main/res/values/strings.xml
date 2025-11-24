@@ -3,4 +3,13 @@
     <string name="pokedex">Pokédex</string>
     <string name="weight">WEIGHT</string>
     <string name="height">HEIGHT</string>
+
+    <string name="hp">Hit points</string>
+    <string name="attack">Attack</string>
+    <string name="defense">Defense</string>
+    <string name="special_attack">Special attack</string>">
+    <string name="special_defense">Special defense</string>
+    <string name="speed">Speed</string>
+
+    <string name="unknown">Unknown</string>
 </resources>

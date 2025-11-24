@@ -19,6 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,6 +31,7 @@ import com.ryancphil.pokedex.core.presentation.designsystem.theme.PokedexTheme
 fun StatBar(
     modifier: Modifier = Modifier,
     name: String,
+    contentDescription: String,
     value: Int,
     color: Color
 ) {
@@ -60,11 +63,15 @@ fun StatBar(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(8.dp)
+                    .semantics(mergeDescendants = true){},
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
+                    modifier = Modifier.semantics {
+                        this.contentDescription = contentDescription
+                    },
                     text = name,
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.background,
@@ -88,6 +95,7 @@ private fun StatBarPreview() {
     PokedexTheme {
         StatBar(
             name = "SP-ATK",
+            contentDescription = "Special Attack",
             value = 50,
             color = AshBlack
         )

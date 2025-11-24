@@ -1,6 +1,8 @@
 package com.ryancphil.pokedex.pokedex.presentation.detail
 
+import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
+import com.ryancphil.pokedex.R
 import com.ryancphil.pokedex.core.presentation.designsystem.theme.AshWhite
 import com.ryancphil.pokedex.core.presentation.designsystem.theme.AtkColor
 import com.ryancphil.pokedex.core.presentation.designsystem.theme.DefColor
@@ -24,6 +26,17 @@ data class StatState(
     val name: String,
     val value: Int
 ) {
+    // TODO: Refactor out magic strings for enum or something
+    @StringRes
+    fun getContentDescription(): Int = when (name) {
+        "HP" -> R.string.hp
+        "ATK" -> R.string.attack
+        "DEF" -> R.string.defense
+        "SP-ATK" -> R.string.special_attack
+        "SP-DEF" -> R.string.special_defense
+        "SPD" -> R.string.speed
+        else -> R.string.unknown
+    }
     fun getColor(): Color = when (name) {
         "HP" -> HpColor
         "ATK" -> AtkColor
