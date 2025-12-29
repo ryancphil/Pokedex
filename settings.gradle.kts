@@ -1,4 +1,6 @@
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS") // Syntactical nice-to-have for gradle dependency management
 pluginManagement {
+    includeBuild("build-logic") // multi-module gradle configuration
     repositories {
         google {
             content {
