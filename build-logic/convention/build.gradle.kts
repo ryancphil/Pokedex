@@ -11,13 +11,35 @@ dependencies {
     compileOnly(libs.room.gradlePlugin)
 }
 
-// TODO: Register all Convention Plugins.
-//gradlePlugin {
-//    plugins {
-//        register() {
-//            id = ""
-//            implementationClass = ""
-//        }
-//
-//    }
-//}
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = "pokedex.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+        register("androidApplicationCompose") {
+            id = "pokedex.android.application.compose"
+            implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
+        register("androidLibrary") {
+            id = "pokedex.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
+        register("androidLibraryCompose") {
+            id = "pokedex.android.library.compose"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
+        register("androidHilt") {
+            id = "pokedex.android.hilt"
+            implementationClass = "AndroidHiltConventionPlugin"
+        }
+        register("androidRoom") {
+            id = "pokedex.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
+        }
+        register("jvmLibrary") {
+            id = "pokedex.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
+    }
+}

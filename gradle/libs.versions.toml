@@ -24,6 +24,14 @@ materialIcons = "1.7.8"
 timber = "5.0.1"
 room = "2.8.4"
 
+# Project Versions - For Gradle Convention Plugin convenience
+projectApplicationId = "com.ryancphil.pokedex"
+projectVersionName = "1.0.0"
+projectVersionCode = "1"
+projectMinSdk = "29"
+projectCompileSdk = "36"
+projectTargetSdk = "36"
+
 [libraries]
 # Core
 androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -58,7 +66,7 @@ retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.r
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 moshi = {group = "com.squareup.moshi", name = "moshi", version.ref = "moshi"}
 moshi-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi"}
-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt"}
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose"}
 
@@ -90,5 +98,15 @@ jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin"
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+room = { id = "androidx.room", version.ref = "room" }
+
+# Convention plugins
+pokedex-android-application = { id = "pokedex.android.application", version = "unspecified" }
+pokedex-android-application-compose = { id = "pokedex.android.application.compose", version = "unspecified" }
+pokedex-android-library = { id = "pokedex.android.library", version = "unspecified" }
+pokedex-android-library-compose = { id = "pokedex.android.library.compose", version = "unspecified" }
+pokedex-android-hilt = { id = "pokedex.android.hilt", version = "unspecified" }
+pokedex-android-room = { id = "pokedex.android.room", version = "unspecified" }
+pokedex-jvm-library = { id = "pokedex.jvm.library", version = "unspecified" }
 
 [bundles]
