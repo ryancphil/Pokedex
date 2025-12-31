@@ -1,14 +1,15 @@
 [versions]
 # Gradle & Core Build Tools
-agp = "8.12.3"
-kotlin = "2.2.21"
-ksp = "2.2.21-2.0.4"
+agp = "8.13.2"
+androidTools="31.13.2"
+kotlin = "2.3.0"
+ksp = "2.3.0"
 
 coil = "2.7.0"
-composeBom = "2025.10.01"
+composeBom = "2025.12.01"
 nav3Core = "1.0.0"
 coreKtx = "1.17.0"
-lifecycle = "2.9.4"
+lifecycle = "2.10.0"
 retrofit = "3.0.0"
 moshi = "1.15.2"
 hilt = "2.57.2"
@@ -22,6 +23,14 @@ espressoCore = "3.7.0"
 materialIcons = "1.7.8"
 timber = "5.0.1"
 room = "2.8.4"
+
+# Project Versions - For Gradle Convention Plugin convenience
+projectApplicationId = "com.ryancphil.pokedex"
+projectVersionName = "1.0.0"
+projectVersionCode = "1"
+projectMinSdk = "29"
+projectCompileSdk = "36"
+projectTargetSdk = "36"
 
 [libraries]
 # Core
@@ -57,7 +66,7 @@ retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.r
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 moshi = {group = "com.squareup.moshi", name = "moshi", version.ref = "moshi"}
 moshi-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi"}
-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt"}
 androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose"}
 
@@ -72,6 +81,12 @@ google-truth = { group = "com.google.truth", name = "truth", version.ref = "trut
 androidx-test-ext = { group = "androidx.test.ext", name = "junit", version.ref = "androidTestExtJunit" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
+# Gradle Libraries/Dependencies for the included `build-logic` module.
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 
 [plugins]
 # Core
@@ -83,6 +98,15 @@ jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin"
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+room = { id = "androidx.room", version.ref = "room" }
 
+# Convention plugins
+pokedex-android-application = { id = "pokedex.android.application", version = "unspecified" }
+pokedex-android-application-compose = { id = "pokedex.android.application.compose", version = "unspecified" }
+pokedex-android-library = { id = "pokedex.android.library", version = "unspecified" }
+pokedex-android-library-compose = { id = "pokedex.android.library.compose", version = "unspecified" }
+pokedex-android-hilt = { id = "pokedex.android.hilt", version = "unspecified" }
+pokedex-android-room = { id = "pokedex.android.room", version = "unspecified" }
+pokedex-jvm-library = { id = "pokedex.jvm.library", version = "unspecified" }
 
 [bundles]

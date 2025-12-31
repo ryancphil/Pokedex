@@ -1,47 +1,12 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.pokedex.android.application.compose)
+    alias(libs.plugins.pokedex.android.hilt)
+    alias(libs.plugins.pokedex.android.room)
     alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "com.ryancphil.pokedex"
-    compileSdk =  36
-
-    defaultConfig {
-        applicationId = "com.ryancphil.pokedex"
-        minSdk = 29
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
-    buildFeatures {
-        compose = true
-        buildConfig = true
-    }
-}
-
-kotlin {
-    jvmToolchain(11)
-    compilerOptions {
-        freeCompilerArgs = listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
-    }
 }
 
 dependencies {
@@ -67,7 +32,7 @@ dependencies {
     implementation(libs.androidx.navigation3.ui)
 
     // --- Hilt for Dependency Injection ---
-    implementation(libs.hilt)
+    implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
 
