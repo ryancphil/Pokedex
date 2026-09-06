@@ -1,4 +1,4 @@
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import com.ryanphillips.convention.ExtensionType
 import com.ryanphillips.convention.configureBuildTypes
 import com.ryanphillips.convention.configureKotlinAndroid

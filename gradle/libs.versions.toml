@@ -1,9 +1,9 @@
 [versions]
 # Gradle & Core Build Tools
-agp = "8.13.2"
+agp = "9.3.2"
 androidTools="31.13.2"
 kotlin = "2.3.0"
-ksp = "2.3.0"
+ksp = "2.3.6"
 
 coil = "2.7.0"
 composeBom = "2025.12.01"

@@ -8,12 +8,10 @@ import org.gradle.kotlin.dsl.dependencies
  * Android Compose specific configuration.
  */
 internal fun Project.configureAndroidCompose(
-    commonExtension: CommonExtension<*,*,*,*,*,*>
+    commonExtension: CommonExtension
 ) {
-    commonExtension.run {
-        buildFeatures {
-            compose = true
-        }
+    commonExtension.buildFeatures.compose = true
+    commonExtension.apply {
         dependencies {
             val bom = libs.findLibrary("androidx.compose.bom").get()
             "implementation"(platform(bom))
