@@ -8,32 +8,29 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
 internal fun Project.configureBuildTypes(
-    commonExtension: CommonExtension<*, *, *, *, *, *>,
+    commonExtension: CommonExtension,
     extensionType: ExtensionType
 ) {
-    commonExtension.run {
-        buildFeatures {
-            buildConfig = true
-        }
-        when (extensionType) {
-            ExtensionType.APPLICATION -> extensions.configure<ApplicationExtension> {
-                buildTypes {
-                    debug {
-                        configureDebug()
-                    }
-                    release {
-                        configureRelease(commonExtension)
-                    }
+    commonExtension.buildFeatures.buildConfig = true
+
+    when (extensionType) {
+        ExtensionType.APPLICATION -> extensions.configure<ApplicationExtension> {
+            buildTypes {
+                getByName("debug") {
+                    configureDebug()
+                }
+                getByName("release") {
+                    configureRelease(commonExtension)
                 }
             }
-            ExtensionType.LIBRARY -> extensions.configure<LibraryExtension> {
-                buildTypes {
-                    debug {
-                        configureDebug()
-                    }
-                    release {
-                        configureRelease(commonExtension)
-                    }
+        }
+        ExtensionType.LIBRARY -> extensions.configure<LibraryExtension> {
+            buildTypes {
+                getByName("debug") {
+                    configureDebug()
+                }
+                getByName("release") {
+                    configureRelease(commonExtension)
                 }
             }
         }
@@ -45,7 +42,7 @@ private fun BuildType.configureDebug() {
 }
 
 private fun BuildType.configureRelease(
-    commonExtension: CommonExtension<*, *, *, *, *, *>
+    commonExtension: CommonExtension
 ) {
     isMinifyEnabled = true
     proguardFiles(

@@ -15,7 +15,7 @@ class AndroidApplicationConventionPlugin: Plugin<Project> {
                 apply("org.jetbrains.kotlin.android")
             }
 
-            extensions.configure<ApplicationExtension>() {
+            extensions.configure<ApplicationExtension> {
                 defaultConfig {
                     applicationId = libs.findVersion("projectApplicationId").get().toString()
                     versionCode = libs.findVersion("projectVersionCode").get().toString().toInt()
