@@ -24,7 +24,7 @@ internal fun Project.configureKotlinAndroid(
 internal fun Project.configureKotlinAndroid() {
     // DSL doesn’t register accessor for Android variant, so we pass the java class literal.
     extensions.configure(KotlinAndroidProjectExtension::class.java) {
-        jvmToolchain(17)
+        jvmToolchain(21)
         compilerOptions {
             freeCompilerArgs.set(
                 listOf("-XXLanguage:+PropertyParamAnnotationDefaultTargetMode")
@@ -35,6 +35,6 @@ internal fun Project.configureKotlinAndroid() {
 
 internal fun Project.configureKotlinJvm() {
     extensions.configure<KotlinJvmProjectExtension> {
-        jvmToolchain(17)
+        jvmToolchain(21)
     }
 }
